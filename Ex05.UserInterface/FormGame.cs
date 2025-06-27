@@ -103,6 +103,7 @@ namespace Ex05.UserInterface
             }
         }
 
+
         private void initializeComputerSequenceButtons()
         {
             m_ComputerSequenceButtons = new Button[k_SequenceLength];
