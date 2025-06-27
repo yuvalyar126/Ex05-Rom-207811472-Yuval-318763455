@@ -1,0 +1,11 @@
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.GameLogic\obj\Debug\Ex05.GameLogic.csproj.AssemblyReference.cache
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.GameLogic\obj\Debug\Ex05.GameLogic.csproj.CoreCompileInputs.cache
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.GameLogic\bin\Debug\Ex05.GameLogic.dll.config
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.GameLogic\bin\Debug\Ex05.GameLogic.dll
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.GameLogic\bin\Debug\Ex05.GameLogic.pdb
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.GameLogic\bin\Debug\Ex05.Enums.dll
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.GameLogic\bin\Debug\Ex05.Enums.pdb
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.GameLogic\bin\Debug\Ex05.Enums.dll.config
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.GameLogic\obj\Debug\Ex05.GameLogic.csproj.CopyComplete
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.GameLogic\obj\Debug\Ex05.GameLogic.dll
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.GameLogic\obj\Debug\Ex05.GameLogic.pdb

@@ -1,0 +1,7 @@
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.Enums\obj\Debug\Ex05.Enums.csproj.AssemblyReference.cache
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.Enums\obj\Debug\Ex05.Enums.csproj.CoreCompileInputs.cache
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.Enums\bin\Debug\Ex05.Enums.dll.config
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.Enums\bin\Debug\Ex05.Enums.dll
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.Enums\bin\Debug\Ex05.Enums.pdb
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.Enums\obj\Debug\Ex05.Enums.dll
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.Enums\obj\Debug\Ex05.Enums.pdb

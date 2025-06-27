@@ -1,0 +1,27 @@
+# Ignore build and debug folders
+bin/
+obj/
+
+# Ignore user-specific files
+*.user
+*.suo
+
+# Ignore Visual Studio Code folder
+.vscode/
+
+# Ignore compiled output
+*.dll
+*.exe
+*.pdb
+
+# Keep important project files
+!*.sln
+!*.csproj
+!*.cs
+!*.Designer.cs
+!*.resx
+!*/
+
+# Ignore other common
+*.log
+*.cache

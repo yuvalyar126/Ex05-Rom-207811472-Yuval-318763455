@@ -1,0 +1,17 @@
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.UserInterface\obj\Debug\Ex05.UserInterface.csproj.AssemblyReference.cache
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.UserInterface\obj\Debug\Ex05.UserInterface.FormGame.resources
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.UserInterface\obj\Debug\Ex05.UserInterface.csproj.GenerateResource.cache
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.UserInterface\obj\Debug\Ex05.UserInterface.csproj.CoreCompileInputs.cache
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.UserInterface\obj\Debug\Ex05.UserInterface.FormGameSettings.resources
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.UserInterface\bin\Debug\Ex05.UserInterface.exe.config
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.UserInterface\bin\Debug\Ex05.UserInterface.exe
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.UserInterface\bin\Debug\Ex05.UserInterface.pdb
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.UserInterface\bin\Debug\Ex05.Enums.dll
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.UserInterface\bin\Debug\Ex05.GameLogic.dll
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.UserInterface\bin\Debug\Ex05.Enums.pdb
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.UserInterface\bin\Debug\Ex05.Enums.dll.config
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.UserInterface\bin\Debug\Ex05.GameLogic.pdb
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.UserInterface\bin\Debug\Ex05.GameLogic.dll.config
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.UserInterface\obj\Debug\Ex05.UserInterface.csproj.CopyComplete
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.UserInterface\obj\Debug\Ex05.UserInterface.exe
+C:\Users\yuval\source\repos\Ex05 Rom 207811472 Yuval 318763455\Ex05.UserInterface\obj\Debug\Ex05.UserInterface.pdb
