@@ -18,7 +18,6 @@ namespace Ex05.GameLogic
         private readonly List<eGuessOption> r_ComputerSequence;
         private eGuessOption?[] m_CurrentGuessOptions;
         private readonly int r_MaxGuesses;
-        private Board m_Board;
         private int m_CurrentGuessIndex;
         Random m_Random;
         private const int k_SequenceLength = 4;
@@ -55,16 +54,12 @@ namespace Ex05.GameLogic
             GuessCompleted?.Invoke(m_CurrentGuessIndex);
         }
 
-
-
-
         public Game(int i_MaxGuesses)
         {
             m_IsWin = false;
             m_IsGameOver = false;
             r_MaxGuesses = i_MaxGuesses;
             m_CurrentGuessIndex = 0;
-            m_Board = new Board(i_MaxGuesses);
             m_Random = new Random();
             m_CurrentGuessOptions = new eGuessOption?[i_MaxGuesses];
             r_ComputerSequence = GenerateComputerMove();
@@ -139,13 +134,6 @@ namespace Ex05.GameLogic
                 OnGuessOptionFailed();
             }
         }
-
-
-        public string[,] GetCurrentBoardData()
-        {
-            return m_Board.BoardData;
-        }
-
 
         public GuessResult AnalyzeGuess()
         {

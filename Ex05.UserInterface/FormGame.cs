@@ -296,7 +296,6 @@ namespace Ex05.UserInterface
             }
         }
 
-
         private void Game_SelectedOptionFailed()
         {
             MessageBox.Show("You can't choose this color again, please select a different color!", "Invalid Color"
