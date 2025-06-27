@@ -1,16 +1,19 @@
-﻿namespace Ex02
-{
-    internal struct GuessResult
-    {
-        internal int Bulls { get; }
-        internal int Hits { get; }
-        internal string Result { get; }
+﻿using Ex05.Enums;
+using System.Collections.Generic;
 
-        internal GuessResult(int i_Bulls, int i_Hits, string i_Result)
+namespace Ex05.GameLogic
+{
+    public struct GuessResult
+    {
+        public int Bulls { get; set; }
+        public int Hits { get; set; }
+        public List<eFeedbackOption> Feedback { get; set; }
+
+        public GuessResult(int i_Bulls, int i_Hits, List<eFeedbackOption> i_Feedback)
         {
             Bulls = i_Bulls;
             Hits = i_Hits;
-            Result = i_Result;
+            Feedback = i_Feedback;
         }
     }
 }

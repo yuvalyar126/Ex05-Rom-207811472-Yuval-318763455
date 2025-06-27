@@ -1,18 +1,18 @@
-﻿namespace Ex02
+﻿namespace Ex05.GameLogic
 {
-    internal class Board
+    public class Board
     {
         private readonly int r_MaxGuesses;
         private readonly string[,] r_BoardData;
 
-        internal Board(int i_MaxGuesses)
+        public Board(int i_MaxGuesses)
         {
             r_MaxGuesses = i_MaxGuesses;
             r_BoardData = new string[i_MaxGuesses + 1, 2];
             initializeBoard();
         }
 
-        internal int MaxGuesses
+        public int MaxGuesses
         {
             get
             {
@@ -20,7 +20,7 @@
             }
         }
 
-        internal string[,] BoardData
+        public string[,] BoardData
         {
             get
             {
@@ -30,15 +30,15 @@
 
         private void initializeBoard()
         {
-            r_BoardData[0, 0] = new string('#', InputValidator.k_SequenceLength);
+            r_BoardData[0, 0] = new string('#', 4);
             for (int i = 1; i < r_MaxGuesses; i++)
             {
-                r_BoardData[i, 0] = new string(' ', InputValidator.k_SequenceLength);
+                r_BoardData[i, 0] = new string(' ', 4);
                 r_BoardData[i, 1] = string.Empty;
             }
         }
 
-        internal void UpdateBoard(int i_GuessNumber, string i_Guess, string i_Signs)
+        public void UpdateBoard(int i_GuessNumber, string i_Guess, string i_Signs)
         {
             r_BoardData[i_GuessNumber, 0] = i_Guess;
             r_BoardData[i_GuessNumber, 1] = i_Signs;

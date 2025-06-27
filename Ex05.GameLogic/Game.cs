@@ -1,101 +1,151 @@
-﻿using System;
+﻿using Ex05.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Ex02
+namespace Ex05.GameLogic
 {
-    internal class Game
+    public class Game
     {
-        private readonly string r_ComputerSequence;
+        public event Action<List<eFeedbackOption>> GuessAnalyzed;
+        public event Action GameWon;
+        public event Action GameLost;
+        public event Action OptionChosen;
+
+        private readonly List<eGuessOption> r_ComputerSequence;
+        private eGuessOption?[] m_CurrentGuessOptions;
+        private readonly int r_MaxGuesses;
         private Board m_Board;
         private int m_CurrentGuessIndex;
+        Random m_Random;
+        private const int k_SequenceLength = 4;
+        private bool m_IsWin;
+        private bool m_IsGameOver;
 
-        internal Game(int i_MaxGuesses)
+        protected virtual void OnGuessAnalyzed(List<eFeedbackOption> i_Feedback)
         {
+            GuessAnalyzed?.Invoke(i_Feedback);
+        }
+
+        protected virtual void OnGameWon()
+        {
+            GameWon?.Invoke();
+        }
+
+        protected virtual void OnGameLost()
+        {
+            GameLost?.Invoke();
+        }
+
+
+        public Game(int i_MaxGuesses)
+        {
+            m_IsWin = false;
+            m_IsGameOver = false;
+            r_MaxGuesses = i_MaxGuesses;
+            m_CurrentGuessIndex = 0;
             m_Board = new Board(i_MaxGuesses);
-            m_CurrentGuessIndex = 1;
+            m_Random = new Random();
             r_ComputerSequence = GenerateComputerMove();
         }
 
-        internal int MaxGuesses
+
+        public bool IsWin
         {
             get
             {
-                return m_Board.MaxGuesses;
+                return m_IsWin;
             }
         }
 
-        internal int CurrentGuessIndex
+        public bool IsGameOver
         {
             get
             {
-                return m_CurrentGuessIndex;
+                return m_IsGameOver;
             }
         }
 
-        internal string GenerateComputerMove()
+        public List<eGuessOption> GenerateComputerMove()
         {
-            Random random = new Random();
-            char[] result = new char[InputValidator.k_SequenceLength];
-            List<char> availableLetters = new List<char> { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' };
-
-            for (int i = 0; i < InputValidator.k_SequenceLength; i++)
+            List<eGuessOption> result = new List<eGuessOption>();
+            List<eGuessOption> availableOptions = new List<eGuessOption>
             {
-                int index = random.Next(0, availableLetters.Count);
-                result[i] = availableLetters[index];
-                availableLetters.RemoveAt(index);
+                eGuessOption.Option1,
+                eGuessOption.Option2,
+                eGuessOption.Option3,
+                eGuessOption.Option4,
+                eGuessOption.Option5,
+                eGuessOption.Option6,
+                eGuessOption.Option7,
+                eGuessOption.Option8
+            };
+
+            for (int i = 0; i <k_SequenceLength; i++)
+            {
+                int index = m_Random.Next(0, availableOptions.Count);
+                result.Add(availableOptions[index]);
+                availableOptions.RemoveAt(index);
             }
 
-            string computerSequence = new string(result);
-
-            return computerSequence;
+            int debug = 0; //delete
+            return result;
         }
 
 
-        internal string[,] GetCurrentBoardData()
+        public string[,] GetCurrentBoardData()
         {
             return m_Board.BoardData;
         }
 
-        internal GuessResult ExecuteGuess(string i_Guess)
-        {
-            GuessResult result = analyzeGuess(i_Guess);
 
-            m_Board.UpdateBoard(m_CurrentGuessIndex, i_Guess, result.Result);
-            m_CurrentGuessIndex++;
-
-            return result;
-        }
-
-        private GuessResult analyzeGuess(string i_Guess)
+        public GuessResult AnalyzeGuess(List<eGuessOption> i_Guess)
         {
             int bulls = 0;
             int hits = 0;
-            StringBuilder resultSignsBuilder = new StringBuilder();
+            List<eFeedbackOption> feedback = new List<eFeedbackOption>();
 
-            for (int i = 0; i < InputValidator.k_SequenceLength; i++)
+            for (int i = 0; i < k_SequenceLength; i++)
             {
                 if (i_Guess[i] == r_ComputerSequence[i])
                 {
                     bulls++;
-                    resultSignsBuilder.Insert(0, 'V');
+                    feedback.Insert(0, eFeedbackOption.Bull);
                 }
                 else if (r_ComputerSequence.Contains(i_Guess[i]))
                 {
                     hits++;
-                    resultSignsBuilder.Append('X');
+                    feedback.Add(eFeedbackOption.Hit);
                 }
             }
 
-            GuessResult guessResult = new GuessResult(bulls, hits, resultSignsBuilder.ToString());
+            GuessResult result = new GuessResult(bulls, hits, feedback);
+            OnGuessAnalyzed(feedback);
 
-            return guessResult;
+            if (result.Bulls == k_SequenceLength)
+            {
+                m_IsWin = true;
+                OnGameWon();
+            }
+            else
+            {
+                m_CurrentGuessIndex++;
+
+                if (m_CurrentGuessIndex >= r_MaxGuesses)
+                {
+                    m_IsGameOver = true;
+                    OnGameLost();
+                }
+            }
+
+
+            return result;
         }
 
-        internal void RevealComputerSequence()
+        public List<eGuessOption> GetComputerSequence()
         {
-            m_Board.UpdateBoard(0, r_ComputerSequence, string.Empty);
+            return r_ComputerSequence;
         }
     }
 }
