@@ -27,9 +27,6 @@ namespace Ex05.UserInterface
         private Button[] m_SubmitButtons;
         private Button[,] m_ResultButtons;
         private int m_MaxGuesses;
-        private int m_CurrentRow = 0;
-        private eGuessOption?[] m_CurrentGuessOptions;
-        private HashSet<eGuessOption> m_UsedOptionsInCurrentGuess;
         private Game m_Game;
         private Dictionary<eGuessOption, Color> m_OptionsToColors;
         private Dictionary<Color, eGuessOption> m_ColorsToOptions;
@@ -37,8 +34,6 @@ namespace Ex05.UserInterface
         public FormGame()
         {
             InitializeComponent();
-            m_CurrentGuessOptions = new eGuessOption?[k_SequenceLength];
-            m_UsedOptionsInCurrentGuess = new HashSet<eGuessOption>();
             initializeDictionaries();
         }
 
@@ -62,6 +57,9 @@ namespace Ex05.UserInterface
             m_Game.GuessAnalyzed += Game_GuessAnalyzed;
             m_Game.GameWon += Game_GameWon;
             m_Game.GameLost += Game_GameLost;
+            m_Game.OptionFailed += Game_SelectedOptionFailed;
+            m_Game.OptionAdded += Game_SelectedOptionAdded;
+            m_Game.GuessCompleted += Game_GuessCompleted;
         }
 
 
@@ -78,7 +76,7 @@ namespace Ex05.UserInterface
 
         private void initializeDictionaries()
         {
-            Color[] colors = 
+            Color[] colors =
             {
             Color.Purple,
             Color.Red,
@@ -208,74 +206,26 @@ namespace Ex05.UserInterface
             {
                 Color selectedColor = colorPicker.SelectedColor;
                 eGuessOption selectedOption = m_ColorsToOptions[selectedColor];
-                if(m_UsedOptionsInCurrentGuess.Contains(selectedOption) &&
-                            (!m_CurrentGuessOptions[col].HasValue || m_CurrentGuessOptions[col].Value != selectedOption))
-                {
-                    MessageBox.Show("You can't choose this color again, please select a different color!", "Invalid Color"
-                        ,MessageBoxButtons.OK);
-                    return;
-                }
-                
+                m_Game.AddGuessOption(selectedOption, col);
 
-                if(m_CurrentGuessOptions[col].HasValue)
-                {
-                    m_UsedOptionsInCurrentGuess.Remove(m_CurrentGuessOptions[col].Value);
-                }
-
-                clickedButton.BackColor = selectedColor;
-                m_CurrentGuessOptions[col] = selectedOption;
-
-                if (!m_UsedOptionsInCurrentGuess.Contains(selectedOption))
-                {
-                    m_UsedOptionsInCurrentGuess.Add(selectedOption);
-                }
-
-                checkIfRowComplete();
+                m_Game.CheckIfRowComplete();
             }
         }
 
-
-        private void checkIfRowComplete()
-        {
-            bool isComplete = true;
-            for (int i = 0; i < k_SequenceLength; i++)
-            {
-                if (!m_CurrentGuessOptions[i].HasValue)
-                {
-                    isComplete = false;
-                    break;
-                }
-            }
-
-            m_SubmitButtons[m_CurrentRow].Enabled = isComplete;
-        }
 
         private void submitButton_Click(object sender, EventArgs e)
         {
-            List<eGuessOption> guess = new List<eGuessOption>();
-            for (int i = 0; i < k_SequenceLength; i++)
-            {
-                guess.Add(m_CurrentGuessOptions[i].Value);
-            }
+            m_Game.AnalyzeGuess();
 
-            m_Game.AnalyzeGuess(guess);
-
-  
-            m_SubmitButtons[m_CurrentRow].Enabled = false;
-            disableCurrentRow();
 
             if (m_Game.IsWin || m_Game.IsGameOver)
             {
                 return;
             }
 
-            m_CurrentRow++;
-            if (m_CurrentRow < m_MaxGuesses)
-            {
-                m_CurrentGuessOptions = new eGuessOption?[k_SequenceLength];
-                m_UsedOptionsInCurrentGuess.Clear();
-                enableCurrentRow();
-            }
+            m_SubmitButtons[m_Game.CurrentGuessIndex].Enabled = false;
+            disableCurrentRow();
+            enableCurrentRow();
         }
 
         private void revealComputerSequence()
@@ -290,31 +240,12 @@ namespace Ex05.UserInterface
             }
         }
 
-        private void Game_GuessAnalyzed(List<eFeedbackOption> i_Feedback)
-        {
-            int buttonIndex = 0;
-
-            foreach (eFeedbackOption feedback in i_Feedback)
-            {
-                if (feedback == eFeedbackOption.Bull)
-                {
-                    m_ResultButtons[m_CurrentRow, buttonIndex].BackColor = Color.Black;
-                }
-                else if (feedback == eFeedbackOption.Hit)
-                {
-                    m_ResultButtons[m_CurrentRow, buttonIndex].BackColor = Color.Yellow;
-                }
-
-                buttonIndex++;
-            }
-        }
-
 
         private void enableCurrentRow()
         {
             for (int i = 0; i < k_SequenceLength; i++)
             {
-                m_GuessButtons[m_CurrentRow, i].Enabled = true;
+                m_GuessButtons[m_Game.CurrentGuessIndex, i].Enabled = true;
             }
         }
 
@@ -322,8 +253,10 @@ namespace Ex05.UserInterface
         {
             for (int i = 0; i < k_SequenceLength; i++)
             {
-                m_GuessButtons[m_CurrentRow, i].Enabled = false;
+                m_GuessButtons[m_Game.CurrentGuessIndex - 1, i].Enabled = false;
             }
+
+            m_SubmitButtons[m_Game.CurrentGuessIndex - 1].Enabled = false;
         }
 
         private void disableAllButtons()
@@ -338,11 +271,49 @@ namespace Ex05.UserInterface
             }
         }
 
+        private void Game_GuessCompleted(int i_GuessRow)
+        {
+            m_SubmitButtons[i_GuessRow].Enabled = true;
+        }
+
+
+        private void Game_GuessAnalyzed(List<eFeedbackOption> i_Feedback)
+        {
+            int buttonIndex = 0;
+
+            foreach (eFeedbackOption feedback in i_Feedback)
+            {
+                if (feedback == eFeedbackOption.Bull)
+                {
+                    m_ResultButtons[m_Game.CurrentGuessIndex, buttonIndex].BackColor = Color.Black;
+                }
+                else if (feedback == eFeedbackOption.Hit)
+                {
+                    m_ResultButtons[m_Game.CurrentGuessIndex, buttonIndex].BackColor = Color.Yellow;
+                }
+
+                buttonIndex++;
+            }
+        }
+
+
+        private void Game_SelectedOptionFailed()
+        {
+            MessageBox.Show("You can't choose this color again, please select a different color!", "Invalid Color"
+                        , MessageBoxButtons.OK);
+        }
+
+        private void Game_SelectedOptionAdded(eGuessOption i_SelectedOption, int i_GuessRow, int i_GuessColumn)
+        {
+            Color selectedColor = m_OptionsToColors[i_SelectedOption];
+            Button selectedButton = m_GuessButtons[i_GuessRow, i_GuessColumn];
+            selectedButton.BackColor = selectedColor;
+        }
 
         private void Game_GameWon()
         {
             revealComputerSequence();
-            MessageBox.Show($"Congratulations! You guessed after {m_CurrentRow + 1} steps!",
+            MessageBox.Show($"Congratulations! You guessed after {m_Game.CurrentGuessIndex + 1} steps!",
                 "You Win!", MessageBoxButtons.OK);
             disableAllButtons();
         }
@@ -354,7 +325,6 @@ namespace Ex05.UserInterface
                 "Game Over", MessageBoxButtons.OK);
             disableAllButtons();
         }
-
     }
 }
 
