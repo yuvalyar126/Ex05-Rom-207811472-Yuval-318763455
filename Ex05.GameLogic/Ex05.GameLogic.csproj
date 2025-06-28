@@ -40,7 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game.cs" />
-    <Compile Include="GuessResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ex05.Enums\Ex05.Enums.csproj">

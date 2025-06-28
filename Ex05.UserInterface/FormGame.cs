@@ -19,9 +19,7 @@ namespace Ex05.UserInterface
         private const int k_SmallButtonSize = 15;
         private const int k_Spaces = 5;
         private const int k_FormWidth = 350;
-
         private readonly FormGameSettings r_FormGameSettings = new FormGameSettings();
-
         private Button[] m_ComputerSequenceButtons;
         private Button[,] m_GuessButtons;
         private Button[] m_SubmitButtons;
@@ -37,7 +35,6 @@ namespace Ex05.UserInterface
             initializeDictionaries();
         }
 
-
         public void RunGame()
         {
             if (r_FormGameSettings.ShowDialog() == DialogResult.OK)
@@ -48,7 +45,6 @@ namespace Ex05.UserInterface
                 base.ShowDialog();
             }
         }
-
 
         private void initializeStartingGame()
         {
@@ -61,7 +57,6 @@ namespace Ex05.UserInterface
             m_Game.OptionAdded += Game_SelectedOptionAdded;
             m_Game.GuessCompleted += Game_GuessCompleted;
         }
-
 
         private void initializeGameBoard()
         {
@@ -102,7 +97,6 @@ namespace Ex05.UserInterface
                 m_ColorsToOptions.Add(pair.Value, pair.Key);
             }
         }
-
 
         private void initializeComputerSequenceButtons()
         {
@@ -199,7 +193,6 @@ namespace Ex05.UserInterface
             }
 
             int[] position = (int[])clickedButton.Tag;
-            int row = position[0];
             int col = position[1];
 
             FormColorPicker colorPicker = new FormColorPicker();
@@ -213,11 +206,9 @@ namespace Ex05.UserInterface
             }
         }
 
-
         private void submitButton_Click(object sender, EventArgs e)
         {
             m_Game.AnalyzeGuess();
-
 
             if (m_Game.IsWin || m_Game.IsGameOver)
             {
@@ -240,7 +231,6 @@ namespace Ex05.UserInterface
                 m_ComputerSequenceButtons[i].BackColor = color;
             }
         }
-
 
         private void enableCurrentRow()
         {
@@ -276,7 +266,6 @@ namespace Ex05.UserInterface
         {
             m_SubmitButtons[i_GuessRow].Enabled = true;
         }
-
 
         private void Game_GuessAnalyzed(List<eFeedbackOption> i_Feedback)
         {

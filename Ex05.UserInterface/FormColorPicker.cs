@@ -24,6 +24,7 @@ namespace Ex05.UserInterface
             Color.Maroon,
             Color.White
         };
+
         private Color m_SelectedColor;
 
         public FormColorPicker()
@@ -55,7 +56,6 @@ namespace Ex05.UserInterface
                     startX + col * (buttonSize + spacing),
                     startY + row * (buttonSize + spacing)
                 );
-
                 Controls.Add(m_ColorButtons[i]);
             }
         }

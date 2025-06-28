@@ -14,7 +14,6 @@ namespace Ex05.GameLogic
         public event Action<eGuessOption, int, int> OptionAdded;
         public event Action OptionFailed;
         public event Action<int> GuessCompleted;
-
         private readonly List<eGuessOption> r_ComputerSequence;
         private eGuessOption?[] m_CurrentGuessOptions;
         private readonly int r_MaxGuesses;
@@ -65,7 +64,6 @@ namespace Ex05.GameLogic
             r_ComputerSequence = GenerateComputerMove();
         }
 
-
         public bool IsWin
         {
             get
@@ -112,7 +110,6 @@ namespace Ex05.GameLogic
                 availableOptions.RemoveAt(index);
             }
 
-            int debug = 0; //delete
             return result;
         }
 
@@ -135,7 +132,7 @@ namespace Ex05.GameLogic
             }
         }
 
-        public GuessResult AnalyzeGuess()
+        public void AnalyzeGuess()
         {
             int bulls = 0;
             int hits = 0;
@@ -155,10 +152,9 @@ namespace Ex05.GameLogic
                 }
             }
 
-            GuessResult result = new GuessResult(bulls, hits, feedback);
             OnGuessAnalyzed(feedback);
 
-            if (result.Bulls == k_SequenceLength)
+            if (bulls == k_SequenceLength)
             {
                 m_IsWin = true;
                 OnGameWon();
@@ -174,9 +170,6 @@ namespace Ex05.GameLogic
                     OnGameLost();
                 }
             }
-
-
-            return result;
         }
 
         public void CheckIfRowComplete()
